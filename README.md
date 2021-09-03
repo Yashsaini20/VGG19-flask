@@ -1,1 +1,1 @@
-# DL-Project-For-Beginner
+# DL-Imagenet-Project
