@@ -26,17 +26,17 @@ model_path = 'vgg19.h5'
 
 ##load
 model = load_model(model_path)
-model._make_predict_function()  ##Necessary
+model._make_predict_function()  ##Necessary for every image net model
 
 
 ## Preprocessing function
 def model_predict(img_path, model):
-    img = image.load_img(img_path, target_size=(224, 224))
+    img = image.load_img(img_path, target_size=(224, 224))  ## normal size given
 
     # Preprocessing the image
     x = image.img_to_array(img)
     # x = np.true_divide(x, 255)
-    x = np.expand_dims(x, axis=0)  ## Expanding dimension
+    x = np.expand_dims(x, axis=0)  ## Expanding dimension(required)
 
 
     x = preprocess_input(x)
@@ -62,11 +62,11 @@ def upload():
         f.save(file_path)
 
         ## here we make prediction
-        pred = model_predict(file_path,model)  ## givesa class label
+        pred = model_predict(file_path,model)  ## gives a class label/index
        
         # Process your result for human
         # pred_class = preds.argmax(axis=-1)            # Simple argmax
-        pred_class = decode_predictions(pred, top=1)   # ImageNet Decode
+        pred_class = decode_predictions(pred, top=1)   # ImageNet Decode # map class with the name of the class
         result = str(pred_class[0][0][1])
         return result
     return None               # Convert to string
